@@ -1,14 +1,14 @@
-# from pygame import *
 import copy
-
 import pygame as pg
 
 pg.init()
 
 FPS = 30
 
-FILE_PATH = "user_maps/user_map7.txt"
+# FILE_PATH = "user_maps/user_map6.txt"
 # FILE_PATH = "game_map/map1.txt"
+TEXT = open("map_name.txt", 'r').read()
+FILE_PATH = f"user_maps/{TEXT}.txt"
 
 BLOCK_SIZE = 23
 PREF = 25
@@ -37,10 +37,6 @@ ammo_imgs = {0: "red_ammo_0",
 
 clock = pg.time.Clock()
 
-
-def play(path):
-    pg.mixer.music.load(path + ".mp3")
-    pg.mixer.music.play()
 
 def draw_image(screen, image_path, position, sizex, sizey):
     image = pg.image.load(image_path)
@@ -201,10 +197,6 @@ class Main_plate:
                     flag = 0
                     for i in [-1, 0, 1]:
                         for j in [-1, 0, 1]:
-                            if (x + i < 0 or x + i >= self.second_plate.size or y + j < 0 or y + j >= self.second_plate.size):
-                                continue
-
-
                             new_element = self.second_plate.plate[x + i][y + j]
                             if (new_element == 11 or new_element == 12):
                                 flag = 1
@@ -212,11 +204,9 @@ class Main_plate:
                         if (element == 0):
                             self.live_1 += 1
                             self.second_plate.plate[x][y] = 11
-                            play("music/gravel1")
                         else:
                             self.live_2 -= 1
                             self.second_plate.plate[x][y] = 12
-                            play("music/break")
 
                         self.ammo += 1
             else:
@@ -224,8 +214,6 @@ class Main_plate:
                     flag = 0
                     for i in [-1, 0, 1]:
                         for j in [-1, 0, 1]:
-                            if (x + i < 0 or x + i >= self.second_plate.size or y + j < 0 or y + j >= self.second_plate.size):
-                                continue
                             new_element = self.second_plate.plate[x + i][y + j]
                             if (new_element == 21 or new_element == 22):
                                 flag = 1
@@ -233,11 +221,9 @@ class Main_plate:
                         if (element == 0):
                             self.live_2 += 1
                             self.second_plate.plate[x][y] = 21
-                            play("music/gravel1")
                         else:
                             self.live_1 -= 1
                             self.second_plate.plate[x][y] = 22
-                            play("music/break")
 
                         self.ammo += 1
 
